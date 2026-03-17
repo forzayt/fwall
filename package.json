@@ -1,7 +1,9 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "fwall",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A curated stream of high-fidelity digital canvases.",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",

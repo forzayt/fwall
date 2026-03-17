@@ -45,7 +45,7 @@ const Index = () => {
             scrambleChars=".:*#_/" 
             className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground"
           >
-            The Pool.
+            The Pool :) 
           </ScrambledText>
           <p className="mt-3 text-muted-foreground text-sm max-w-md mx-auto" style={{ textWrap: "balance" } as React.CSSProperties}>
             A curated stream of high-fidelity digital canvases.
