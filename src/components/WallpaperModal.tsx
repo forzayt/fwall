@@ -73,8 +73,7 @@ const WallpaperModal = ({ wallpaper, onClose }: WallpaperModalProps) => {
 
             <div className="flex items-center gap-6">
               <div className="text-center">
-                <p className="text-lg font-medium text-foreground">{wallpaper.title}</p>
-                <p className="metadata-text mt-1">{wallpaper.author}</p>
+                <p className="metadata-text">{wallpaper.author}</p>
               </div>
               <button
                 onClick={handleDownload}

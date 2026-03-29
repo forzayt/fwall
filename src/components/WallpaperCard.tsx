@@ -45,7 +45,6 @@ const WallpaperCard = ({ src, title, author, index, onClick }: WallpaperCardProp
         {/* Hover overlay */}
         <div className="absolute inset-0 rounded-card-inner bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
           <div>
-            <p className="text-sm font-medium text-foreground">{title}</p>
             <p className="metadata-text">{author}</p>
           </div>
         </div>
