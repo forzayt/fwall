@@ -17,6 +17,19 @@ const Index = () => {
   });
   const [selected, setSelected] = useState<any | null>(null);
   const [dataFiles, setDataFiles] = useState<DataFile[]>([]);
+  const [columns, setColumns] = useState(1);
+
+  useEffect(() => {
+    const updateColumns = () => {
+      if (window.innerWidth >= 1280) setColumns(4);
+      else if (window.innerWidth >= 1024) setColumns(3);
+      else if (window.innerWidth >= 640) setColumns(2);
+      else setColumns(1);
+    };
+    updateColumns();
+    window.addEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateColumns);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("fwall-atmosphere-color", atmosphereColor);
@@ -46,6 +59,12 @@ const Index = () => {
   const getFileNameWithoutExtension = (filename: string) => {
     return filename.replace(/\.[^/.]+$/, "");
   };
+
+  // Distribute images into columns for masonry effect with horizontal loading order
+  const columnData = Array.from({ length: columns }, () => [] as { file: DataFile; index: number }[]);
+  images.forEach((file, index) => {
+    columnData[index % columns].push({ file, index });
+  });
 
   return (
     <div className="min-h-screen">
@@ -82,30 +101,34 @@ const Index = () => {
         </motion.div>
 
         {/* Masonry Grid */}
-        <div className="masonry-grid columns-1 sm:columns-2 lg:columns-3 xl:columns-4 p-6">
-          {images.map((file, index) => (
-            <div key={file.name} className="relative group">
-              <WallpaperCard
-                src={file.url}
-                title={getFileNameWithoutExtension(file.name)}
-                author="FWall"
-                index={index}
-                onClick={() => setSelected({
-                  id: file.name,
-                  src: file.url,
-                  downloadUrl: `${file.url}?download=1`,
-                  title: getFileNameWithoutExtension(file.name),
-                  author: "FWall"
-                })}
-              />
-              <a
-                href={`${file.url}?download=1`}
-                download={file.name}
-                className="absolute top-4 right-4 p-2 bg-black/50 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                title="Download"
-              >
-                <Download className="w-4 h-4" />
-              </a>
+        <div className="flex gap-6 p-6 max-w-[2400px] mx-auto">
+          {columnData.map((columnItems, colIndex) => (
+            <div key={colIndex} className="flex-1 flex flex-col gap-6">
+              {columnItems.map(({ file, index }) => (
+                <div key={file.name} className="relative group">
+                  <WallpaperCard
+                    src={file.url}
+                    title={getFileNameWithoutExtension(file.name)}
+                    author="FWall"
+                    index={index}
+                    onClick={() => setSelected({
+                      id: file.name,
+                      src: file.url,
+                      downloadUrl: `${file.url}?download=1`,
+                      title: getFileNameWithoutExtension(file.name),
+                      author: "FWall"
+                    })}
+                  />
+                  <a
+                    href={`${file.url}?download=1`}
+                    download={file.name}
+                    className="absolute top-4 right-4 p-2 bg-black/50 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                    title="Download"
+                  >
+                    <Download className="w-4 h-4" />
+                  </a>
+                </div>
+              ))}
             </div>
           ))}
         </div>
