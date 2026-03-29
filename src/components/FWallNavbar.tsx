@@ -24,7 +24,7 @@ const FWallNavbar = ({ atmosphere, onAtmosphereChange }: FWallNavbarProps) => {
           scrambleChars=".:*#" 
           className="text-2xl tracking-tighter font-bold text-foreground"
         >
-          FWall
+          Forza Wall
         </ScrambledText>
 
         <div className="flex items-center gap-4">
@@ -42,7 +42,7 @@ const FWallNavbar = ({ atmosphere, onAtmosphereChange }: FWallNavbarProps) => {
           </label>
 
           <a 
-            href="https://github.com/forzayt/fwall"
+            href="https://github.com/forzayt/forza_wall"
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-2 rounded-full text-sm font-medium bg-foreground text-background transition-all duration-300 hover:shadow-[0_0_20px_hsla(0,0%,100%,0.3)]"
